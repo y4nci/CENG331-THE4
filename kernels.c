@@ -96,7 +96,7 @@ void register_conv_functions() {
 char naive_average_pooling_descr[] = "Naive Average Pooling: Naive baseline implementation";
 void naive_average_pooling(int dim, pixel *src, pixel *dst) {
     int halfdim = dim/2;
-    int i,j,k,l;
+    int i,j;
 
     for(i = 0; i < halfdim; i++) {
         int i2 = i * 2;
@@ -105,16 +105,35 @@ void naive_average_pooling(int dim, pixel *src, pixel *dst) {
             dst[RIDX(i, j, halfdim)].red = 0;
             dst[RIDX(i, j, halfdim)].green = 0;
             dst[RIDX(i, j, halfdim)].blue = 0;
-            for (k = 0; k < 2; k++) {
-                int i2plusk = i2 + k;
-                for (l = 0; l < 2; l++) {
-                    int j2plusk = j2 + l;
-                    int ridx = RIDX(i2plusk, j2plusk, dim);
-                    dst[RIDX(i, j, halfdim)].red += src[ridx].red;
-                    dst[RIDX(i, j, halfdim)].green += src[ridx].green;
-                    dst[RIDX(i, j, halfdim)].blue += src[ridx].blue;
-                }
-            }
+
+            int i2plusk = i2;
+
+            int j2plusk = j2 ;
+            int ridx = RIDX(i2plusk, j2plusk, dim);
+            dst[RIDX(i, j, halfdim)].red += src[ridx].red;
+            dst[RIDX(i, j, halfdim)].green += src[ridx].green;
+            dst[RIDX(i, j, halfdim)].blue += src[ridx].blue;
+
+            j2plusk = j2 + 1;
+            ridx = RIDX(i2plusk, j2plusk, dim);
+            dst[RIDX(i, j, halfdim)].red += src[ridx].red;
+            dst[RIDX(i, j, halfdim)].green += src[ridx].green;
+            dst[RIDX(i, j, halfdim)].blue += src[ridx].blue;
+
+            i2plusk = i2 + 1;
+
+            j2plusk = j2 ;
+            ridx = RIDX(i2plusk, j2plusk, dim);
+            dst[RIDX(i, j, halfdim)].red += src[ridx].red;
+            dst[RIDX(i, j, halfdim)].green += src[ridx].green;
+            dst[RIDX(i, j, halfdim)].blue += src[ridx].blue;
+
+            j2plusk = j2 + 1;
+            ridx = RIDX(i2plusk, j2plusk, dim);
+            dst[RIDX(i, j, halfdim)].red += src[ridx].red;
+            dst[RIDX(i, j, halfdim)].green += src[ridx].green;
+            dst[RIDX(i, j, halfdim)].blue += src[ridx].blue;
+
             int var1 = dst[RIDX(i, j, halfdim)].red / 4;
             int var2 = dst[RIDX(i, j, halfdim)].green / 4;
             int var3 = dst[RIDX(i, j, halfdim)].blue / 4;
