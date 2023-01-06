@@ -9,10 +9,10 @@
  * Please fill in the following team_t struct
  */
 team_t team = {
-        "TEAM",    /* Team Name */
+        "rant_yoluna_hayir",    /* Team Name */
 
-        "eXXXXXX",      /* First student ID */
-        "NAME",       /* First student name */
+        "e244901",      /* First student ID */
+        "Baran Yancı",/* First student name */
 
         "",             /* Second student ID */
         "",           /* Second student name */
@@ -40,12 +40,15 @@ void naive_conv(int dim, pixel *src, pixel *ker, unsigned *dst) {
     for(i = 0; i < dim-8+1; i++)
         for(j = 0; j < dim-8+1; j++) {
             dst[RIDX(i, j, dim)] = 0;
-            for(k = 0; k < 8; k++)
-                for(l = 0; l < 8; l++) {
-                    dst[RIDX(i, j, dim)] += src[RIDX((i+k),(j+l), dim)].red * ker[RIDX(k, l, 8)].red;
-                    dst[RIDX(i, j, dim)] += src[RIDX((i+k),(j+l), dim)].green * ker[RIDX(k, l, 8)].green;
-                    dst[RIDX(i, j, dim)] += src[RIDX((i+k),(j+l), dim)].blue * ker[RIDX(k, l, 8)].blue;
+            for(k = 0; k < 8; k++) {
+                int iplusk = i + k;
+                for (l = 0; l < 8; l++) {
+                    int jplusl = j + l;
+                    dst[RIDX(i, j, dim)] += src[RIDX(iplusk, jplusl, dim)].red * ker[RIDX(k, l, 8)].red;
+                    dst[RIDX(i, j, dim)] += src[RIDX(iplusk, jplusl, dim)].green * ker[RIDX(k, l, 8)].green;
+                    dst[RIDX(i, j, dim)] += src[RIDX(iplusk, jplusl, dim)].blue * ker[RIDX(k, l, 8)].blue;
                 }
+            }
 
         }
 }
@@ -92,24 +95,34 @@ void register_conv_functions() {
  */
 char naive_average_pooling_descr[] = "Naive Average Pooling: Naive baseline implementation";
 void naive_average_pooling(int dim, pixel *src, pixel *dst) {
+    int halfdim = dim/2;
     int i,j,k,l;
 
-    for(i = 0; i < dim/2; i++)
-        for(j = 0; j < dim/2; j++) {
-            dst[RIDX(i, j, dim/2)].red = 0;
-            dst[RIDX(i, j, dim/2)].green = 0;
-            dst[RIDX(i, j, dim/2)].blue = 0;
-            for(k = 0; k < 2; k++) {
+    for(i = 0; i < halfdim; i++) {
+        int i2 = i * 2;
+        for (j = 0; j < halfdim; j++) {
+            int j2 = j * 2;
+            dst[RIDX(i, j, halfdim)].red = 0;
+            dst[RIDX(i, j, halfdim)].green = 0;
+            dst[RIDX(i, j, halfdim)].blue = 0;
+            for (k = 0; k < 2; k++) {
+                int i2plusk = i2 + k;
                 for (l = 0; l < 2; l++) {
-                    dst[RIDX(i, j, dim/2)].red += src[RIDX(i*2 + k, j*2 + l, dim)].red;
-                    dst[RIDX(i, j, dim/2)].green += src[RIDX(i*2 + k, j*2 + l, dim)].green;
-                    dst[RIDX(i, j, dim/2)].blue += src[RIDX(i*2 + k, j*2 + l, dim)].blue;
+                    int j2plusk = j2 + l;
+                    int ridx = RIDX(i2plusk, j2plusk, dim);
+                    dst[RIDX(i, j, halfdim)].red += src[ridx].red;
+                    dst[RIDX(i, j, halfdim)].green += src[ridx].green;
+                    dst[RIDX(i, j, halfdim)].blue += src[ridx].blue;
                 }
             }
-            dst[RIDX(i, j, dim/2)].red /= 4;
-            dst[RIDX(i, j, dim/2)].green /= 4;
-            dst[RIDX(i, j, dim/2)].blue /= 4;
+            int var1 = dst[RIDX(i, j, halfdim)].red / 4;
+            int var2 = dst[RIDX(i, j, halfdim)].green / 4;
+            int var3 = dst[RIDX(i, j, halfdim)].blue / 4;
+            dst[RIDX(i, j, halfdim)].red = var1;
+            dst[RIDX(i, j, halfdim)].green = var2;
+            dst[RIDX(i, j, halfdim)].blue = var3;
         }
+    }
 }
 
 
@@ -138,3 +151,4 @@ void register_average_pooling_functions() {
     add_average_pooling_function(&average_pooling, average_pooling_descr);
     /* ... Register additional test functions here */
 }
+
