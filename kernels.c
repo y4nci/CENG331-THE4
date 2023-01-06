@@ -9,7 +9,7 @@
  * Please fill in the following team_t struct
  */
 team_t team = {
-        "rant_yoluna_hayir",    /* Team Name */
+        "eski_oluyor_yeni_dogamiyor",    /* Team Name */
 
         "e244901",      /* First student ID */
         "Baran Yancı",/* First student name */
@@ -400,7 +400,7 @@ void naive_average_pooling(int dim, pixel *src, pixel *dst) {
  */
 char average_pooling_descr[] = "Pooling: MY VERSION";
 void average_pooling(int dim, pixel *src, pixel *dst){
-    int halfdim = dim/2, i,j, i2plus1, j2plus1, i2, j2, ridx1, ridx2, iplus1, jplus1;
+    int halfdim = dim/2, i,j, i2plus1, j2plus1, i2, j2, ridx1, ridx2, iplus1, jplus1, RED, GREEN, BLUE;
     register int ridx;
 
     for(i = 0; i < halfdim; i+=2) {
@@ -412,70 +412,72 @@ void average_pooling(int dim, pixel *src, pixel *dst){
             ridx = RIDX(i, j, halfdim);
             j2 = j << 1; j2plus1 = (j << 1) + 1;
 
-            dst[ridx].red = 0;
-            dst[ridx].green = 0;
-            dst[ridx].blue = 0;
-
             ridx1 = RIDX(i2, j2, dim);
             ridx2 = RIDX(i2, j2plus1, dim);
 
-            dst[ridx].red += src[ridx1].red;
-            dst[ridx].green += src[ridx1].green;
-            dst[ridx].blue += src[ridx1].blue;
+            RED = src[ridx1].red;
+            GREEN = src[ridx1].green;
+            BLUE = src[ridx1].blue;
 
-            dst[ridx].red += src[ridx2].red;
-            dst[ridx].green += src[ridx2].green;
-            dst[ridx].blue += src[ridx2].blue;
+            RED += src[ridx2].red;
+            GREEN += src[ridx2].green;
+            BLUE += src[ridx2].blue;
 
             ridx1 = RIDX(i2plus1, j2, dim);
             ridx2 = RIDX(i2plus1, j2plus1, dim);
 
-            dst[ridx].red += src[ridx1].red;
-            dst[ridx].green += src[ridx1].green;
-            dst[ridx].blue += src[ridx1].blue;
+            RED += src[ridx1].red;
+            GREEN += src[ridx1].green;
+            BLUE += src[ridx1].blue;
 
-            dst[ridx].red += src[ridx2].red;
-            dst[ridx].green += src[ridx2].green;
-            dst[ridx].blue += src[ridx2].blue;
+            RED += src[ridx2].red;
+            GREEN += src[ridx2].green;
+            BLUE += src[ridx2].blue;
 
-            dst[ridx].red >>= 2;
-            dst[ridx].green >>= 2;
-            dst[ridx].blue >>= 2;
+            RED >>= 2;
+            GREEN >>= 2;
+            BLUE >>= 2;
+
+            dst[ridx].red = RED;
+            dst[ridx].green = GREEN;
+            dst[ridx].blue = BLUE;
+
+
 
 
 
             ridx = RIDX(i, jplus1, halfdim);
             j2 = jplus1 << 1; j2plus1 = (jplus1 << 1) + 1;
 
-            dst[ridx].red = 0;
-            dst[ridx].green = 0;
-            dst[ridx].blue = 0;
-
             ridx1 = RIDX(i2, j2, dim);
             ridx2 = RIDX(i2, j2plus1, dim);
 
-            dst[ridx].red += src[ridx1].red;
-            dst[ridx].green += src[ridx1].green;
-            dst[ridx].blue += src[ridx1].blue;
+            RED = src[ridx1].red;
+            GREEN = src[ridx1].green;
+            BLUE = src[ridx1].blue;
 
-            dst[ridx].red += src[ridx2].red;
-            dst[ridx].green += src[ridx2].green;
-            dst[ridx].blue += src[ridx2].blue;
+            RED += src[ridx2].red;
+            GREEN += src[ridx2].green;
+            BLUE += src[ridx2].blue;
 
             ridx1 = RIDX(i2plus1, j2, dim);
             ridx2 = RIDX(i2plus1, j2plus1, dim);
 
-            dst[ridx].red += src[ridx1].red;
-            dst[ridx].green += src[ridx1].green;
-            dst[ridx].blue += src[ridx1].blue;
+            RED += src[ridx1].red;
+            GREEN += src[ridx1].green;
+            BLUE += src[ridx1].blue;
 
-            dst[ridx].red += src[ridx2].red;
-            dst[ridx].green += src[ridx2].green;
-            dst[ridx].blue += src[ridx2].blue;
+            RED += src[ridx2].red;
+            GREEN += src[ridx2].green;
+            BLUE += src[ridx2].blue;
 
-            dst[ridx].red >>= 2;
-            dst[ridx].green >>= 2;
-            dst[ridx].blue >>= 2;
+            RED >>= 2;
+            GREEN >>= 2;
+            BLUE >>= 2;
+
+            dst[ridx].red = RED;
+            dst[ridx].green = GREEN;
+            dst[ridx].blue = BLUE;
         }
 
 
@@ -488,70 +490,72 @@ void average_pooling(int dim, pixel *src, pixel *dst){
             ridx = RIDX(iplus1, j, halfdim);
             j2 = j<<1; j2plus1 = (j <<1) + 1;
 
-            dst[ridx].red = 0;
-            dst[ridx].green = 0;
-            dst[ridx].blue = 0;
-
             ridx1 = RIDX(i2, j2, dim);
             ridx2 = RIDX(i2, j2plus1, dim);
 
-            dst[ridx].red += src[ridx1].red;
-            dst[ridx].green += src[ridx1].green;
-            dst[ridx].blue += src[ridx1].blue;
+            RED = src[ridx1].red;
+            GREEN = src[ridx1].green;
+            BLUE = src[ridx1].blue;
 
-            dst[ridx].red += src[ridx2].red;
-            dst[ridx].green += src[ridx2].green;
-            dst[ridx].blue += src[ridx2].blue;
+            RED += src[ridx2].red;
+            GREEN += src[ridx2].green;
+            BLUE += src[ridx2].blue;
 
             ridx1 = RIDX(i2plus1, j2, dim);
             ridx2 = RIDX(i2plus1, j2plus1, dim);
 
-            dst[ridx].red += src[ridx1].red;
-            dst[ridx].green += src[ridx1].green;
-            dst[ridx].blue += src[ridx1].blue;
+            RED += src[ridx1].red;
+            GREEN += src[ridx1].green;
+            BLUE += src[ridx1].blue;
 
-            dst[ridx].red += src[ridx2].red;
-            dst[ridx].green += src[ridx2].green;
-            dst[ridx].blue += src[ridx2].blue;
+            RED += src[ridx2].red;
+            GREEN += src[ridx2].green;
+            BLUE += src[ridx2].blue;
 
-            dst[ridx].red >>= 2;
-            dst[ridx].green >>= 2;
-            dst[ridx].blue >>= 2;
+            RED >>= 2;
+            GREEN >>= 2;
+            BLUE >>= 2;
+
+            dst[ridx].red = RED;
+            dst[ridx].green = GREEN;
+            dst[ridx].blue = BLUE;
+
+
 
 
 
             ridx = RIDX(iplus1, jplus1, halfdim);
             j2 = jplus1 << 1; j2plus1 = (jplus1 << 1) + 1;
 
-            dst[ridx].red = 0;
-            dst[ridx].green = 0;
-            dst[ridx].blue = 0;
-
             ridx1 = RIDX(i2, j2, dim);
             ridx2 = RIDX(i2, j2plus1, dim);
 
-            dst[ridx].red += src[ridx1].red;
-            dst[ridx].green += src[ridx1].green;
-            dst[ridx].blue += src[ridx1].blue;
+            RED = src[ridx1].red;
+            GREEN = src[ridx1].green;
+            BLUE = src[ridx1].blue;
 
-            dst[ridx].red += src[ridx2].red;
-            dst[ridx].green += src[ridx2].green;
-            dst[ridx].blue += src[ridx2].blue;
+            RED += src[ridx2].red;
+            GREEN += src[ridx2].green;
+            BLUE += src[ridx2].blue;
 
             ridx1 = RIDX(i2plus1, j2, dim);
             ridx2 = RIDX(i2plus1, j2plus1, dim);
 
-            dst[ridx].red += src[ridx1].red;
-            dst[ridx].green += src[ridx1].green;
-            dst[ridx].blue += src[ridx1].blue;
+            RED += src[ridx1].red;
+            GREEN += src[ridx1].green;
+            BLUE += src[ridx1].blue;
 
-            dst[ridx].red += src[ridx2].red;
-            dst[ridx].green += src[ridx2].green;
-            dst[ridx].blue += src[ridx2].blue;
+            RED += src[ridx2].red;
+            GREEN += src[ridx2].green;
+            BLUE += src[ridx2].blue;
 
-            dst[ridx].red >>= 2;
-            dst[ridx].green >>= 2;
-            dst[ridx].blue >>= 2;
+            RED >>= 2;
+            GREEN >>= 2;
+            BLUE >>= 2;
+
+            dst[ridx].red = RED;
+            dst[ridx].green = GREEN;
+            dst[ridx].blue = BLUE;
         }
     }
 }
