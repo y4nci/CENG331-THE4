@@ -361,42 +361,34 @@ void register_conv_functions() {
  */
 char naive_average_pooling_descr[] = "Naive Average Pooling: Naive baseline implementation";
 void naive_average_pooling(int dim, pixel *src, pixel *dst) {
-    int halfdim = dim/2, i,j, i2plusk, j2plusk, i2, j2, ridx, var1, var2, var3;
+    int halfdim = dim/2, i,j, i2plus1, j2plus1, i2, j2, ridx, var1, var2, var3;
 
     for(i = 0; i < halfdim; i++) {
-        i2 = i * 2;
+        i2 = i * 2; i2plus1 = i * 2 + 1;
+
         for (j = 0; j < halfdim; j++) {
-            j2 = j * 2;
+            j2 = j * 2; j2plus1 = j * 2 + 1;
+
             dst[RIDX(i, j, halfdim)].red = 0;
             dst[RIDX(i, j, halfdim)].green = 0;
             dst[RIDX(i, j, halfdim)].blue = 0;
 
-            i2plusk = i2;
-            j2plusk = j2;
-
-            ridx = RIDX(i2plusk, j2plusk, dim);
+            ridx = RIDX(i2, j2, dim);
             dst[RIDX(i, j, halfdim)].red += src[ridx].red;
             dst[RIDX(i, j, halfdim)].green += src[ridx].green;
             dst[RIDX(i, j, halfdim)].blue += src[ridx].blue;
 
-            j2plusk = j2 + 1;
-
-            ridx = RIDX(i2plusk, j2plusk, dim);
+            ridx = RIDX(i2, j2plus1, dim);
             dst[RIDX(i, j, halfdim)].red += src[ridx].red;
             dst[RIDX(i, j, halfdim)].green += src[ridx].green;
             dst[RIDX(i, j, halfdim)].blue += src[ridx].blue;
 
-            i2plusk = i2 + 1;
-            j2plusk = j2;
-
-            ridx = RIDX(i2plusk, j2plusk, dim);
+            ridx = RIDX(i2plus1, j2, dim);
             dst[RIDX(i, j, halfdim)].red += src[ridx].red;
             dst[RIDX(i, j, halfdim)].green += src[ridx].green;
             dst[RIDX(i, j, halfdim)].blue += src[ridx].blue;
 
-            j2plusk = j2 + 1;
-
-            ridx = RIDX(i2plusk, j2plusk, dim);
+            ridx = RIDX(i2plus1, j2plus1, dim);
             dst[RIDX(i, j, halfdim)].red += src[ridx].red;
             dst[RIDX(i, j, halfdim)].green += src[ridx].green;
             dst[RIDX(i, j, halfdim)].blue += src[ridx].blue;
