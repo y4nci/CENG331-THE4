@@ -35,6 +35,29 @@ team_t team = {
  */
 char naive_conv_descr[] = "naive_conv: Naive baseline implementation";
 void naive_conv(int dim, pixel *src, pixel *ker, unsigned *dst) {
+    int i,j,k,l;
+
+    for(i = 0; i < dim-8+1; i++)
+        for(j = 0; j < dim-8+1; j++) {
+            dst[RIDX(i, j, dim)] = 0;
+            for(k = 0; k < 8; k++)
+                for(l = 0; l < 8; l++) {
+                    dst[RIDX(i, j, dim)] += src[RIDX((i+k),(j+l), dim)].red * ker[RIDX(k, l, 8)].red;
+                    dst[RIDX(i, j, dim)] += src[RIDX((i+k),(j+l), dim)].green * ker[RIDX(k, l, 8)].green;
+                    dst[RIDX(i, j, dim)] += src[RIDX((i+k),(j+l), dim)].blue * ker[RIDX(k, l, 8)].blue;
+                }
+
+        }
+}
+
+/*
+ * convolution - Your current working version of convolution
+ * IMPORTANT: This is the version you will be graded on
+ */
+char convolution_descr[] = "Convolution: MY VERSION";
+void convolution(int dim, pixel *src, pixel *ker, unsigned *dst)
+{
+
     int i,j, i1, i2, i3, i4, i5, i6, i7, j1, j2, j3, j4, j5, j6, j7;
 
     for(i = 0; i < dim-7; i++) {
@@ -317,17 +340,6 @@ void naive_conv(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
         }
     }
-}
-
-/*
- * convolution - Your current working version of convolution
- * IMPORTANT: This is the version you will be graded on
- */
-char convolution_descr[] = "Convolution: Current working version";
-void convolution(int dim, pixel *src, pixel *ker, unsigned *dst)
-{
-
-    naive_conv(dim,src,ker,dst);
 
 }
 
@@ -361,9 +373,37 @@ void register_conv_functions() {
  */
 char naive_average_pooling_descr[] = "Naive Average Pooling: Naive baseline implementation";
 void naive_average_pooling(int dim, pixel *src, pixel *dst) {
-    int halfdim = dim/2, i,j, i2plus1, j2plus1, i2, j2, ridx1, ridx2, var1, var2, var3;
+    int i,j,k,l;
 
-    for(i = 0; i < halfdim; i++) {
+    for(i = 0; i < dim/2; i++)
+        for(j = 0; j < dim/2; j++) {
+            dst[RIDX(i, j, dim/2)].red = 0;
+            dst[RIDX(i, j, dim/2)].green = 0;
+            dst[RIDX(i, j, dim/2)].blue = 0;
+            for(k = 0; k < 2; k++) {
+                for (l = 0; l < 2; l++) {
+                    dst[RIDX(i, j, dim/2)].red += src[RIDX(i*2 + k, j*2 + l, dim)].red;
+                    dst[RIDX(i, j, dim/2)].green += src[RIDX(i*2 + k, j*2 + l, dim)].green;
+                    dst[RIDX(i, j, dim/2)].blue += src[RIDX(i*2 + k, j*2 + l, dim)].blue;
+                }
+            }
+            dst[RIDX(i, j, dim/2)].red /= 4;
+            dst[RIDX(i, j, dim/2)].green /= 4;
+            dst[RIDX(i, j, dim/2)].blue /= 4;
+        }
+}
+
+
+/*
+ * average_pooling - Your current working version of average_pooling
+ * IMPORTANT: This is the version you will be graded on
+ */
+char average_pooling_descr[] = "Pooling: MY VERSION";
+void average_pooling(int dim, pixel *src, pixel *dst){
+    int halfdim = dim/2, i,j, i2plus1, j2plus1, i2, j2, ridx1, ridx2, var1, var2, var3, iplus1;
+
+    for(i = 0; i < halfdim; i+=2) {
+        iplus1 = i + 1;
         i2 = i * 2; i2plus1 = i * 2 + 1;
 
         for (j = 0; j < halfdim; j++) {
@@ -403,21 +443,52 @@ void naive_average_pooling(int dim, pixel *src, pixel *dst) {
             dst[ridx].green = var2;
             dst[ridx].blue = var3;
         }
+
+
+
+
+        i2 = iplus1 * 2; i2plus1 = iplus1 * 2 + 1;
+
+        for (j = 0; j < halfdim; j++) {
+            register int ridx = RIDX(iplus1, j, halfdim);
+            j2 = j * 2; j2plus1 = j * 2 + 1;
+
+            dst[ridx].red = 0;
+            dst[ridx].green = 0;
+            dst[ridx].blue = 0;
+
+            ridx1 = RIDX(i2, j2, dim);
+            ridx2 = RIDX(i2, j2plus1, dim);
+
+            dst[ridx].red += src[ridx1].red;
+            dst[ridx].green += src[ridx1].green;
+            dst[ridx].blue += src[ridx1].blue;
+
+            dst[ridx].red += src[ridx2].red;
+            dst[ridx].green += src[ridx2].green;
+            dst[ridx].blue += src[ridx2].blue;
+
+            ridx1 = RIDX(i2plus1, j2, dim);
+            ridx2 = RIDX(i2plus1, j2plus1, dim);
+
+            dst[ridx].red += src[ridx1].red;
+            dst[ridx].green += src[ridx1].green;
+            dst[ridx].blue += src[ridx1].blue;
+
+            dst[ridx].red += src[ridx2].red;
+            dst[ridx].green += src[ridx2].green;
+            dst[ridx].blue += src[ridx2].blue;
+
+            var1 = dst[ridx].red / 4;
+            var2 = dst[ridx].green / 4;
+            var3 = dst[ridx].blue / 4;
+            dst[ridx].red = var1;
+            dst[ridx].green = var2;
+            dst[ridx].blue = var3;
+        }
     }
 }
 
-
-/*
- * average_pooling - Your current working version of average_pooling
- * IMPORTANT: This is the version you will be graded on
- */
-char average_pooling_descr[] = "Average Pooling: Current working version";
-void average_pooling(int dim, pixel *src, pixel *dst)
-{
-
-    naive_average_pooling(dim,src,dst);
-
-}
 
 /******************************************************************************
  * register_average_pooling_functions - Register all of your different versions
