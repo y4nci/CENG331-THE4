@@ -60,7 +60,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
     int dimm7 = dim - 7;
     register pixel * srcPtr, * kerPtr = ker;
-    int i,j,origridx,
+    int i,j,origridx = 0,
             RED, GREEN, BLUE,
             dimm8 = dim - 8;
 
@@ -467,7 +467,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             j++;
 
 
-            origridx = RIDX(i,j,dim);
+            origridx++;
             srcPtr = src + origridx;
             kerPtr = ker;
 
@@ -863,7 +863,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             dst[origridx] = RED + GREEN + BLUE;
         }
 
-        origridx = RIDX(i,j,dim);
+        origridx++;
         srcPtr = src + origridx;
         kerPtr = ker;
 
@@ -1667,7 +1667,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             j++;
 
 
-            origridx = RIDX(i,j,dim);
+            origridx++;
             srcPtr = src + origridx;
             kerPtr = ker;
 
@@ -2063,7 +2063,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             dst[origridx] = RED + GREEN + BLUE;
         }
 
-        origridx = RIDX(i,j,dim);
+        origridx++;
         srcPtr = src + origridx;
         kerPtr = ker;
 
@@ -2861,7 +2861,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
         j++;
 
 
-        origridx = RIDX(i,j,dim);
+        origridx ++;
         srcPtr = src + origridx;
         kerPtr = ker;
 
@@ -3257,7 +3257,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
         dst[origridx] = RED + GREEN + BLUE;
     }
 
-    origridx = RIDX(i,j,dim);
+    origridx ++;
     srcPtr = src + origridx;
     kerPtr = ker;
 
