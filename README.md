@@ -13,4 +13,4 @@ the average of those 5 tests are recorded in the commits.
 ## regulations
 
  - **for `avgpool` solution**, the performance should be above 2.2, that is enough for it.
- - **for `convolution`, the higher is the better and the limit is the sky. the targeted performance is **>= 5** tho
+ - **for `convolution`**, the higher is the better and the limit is the sky. the targeted performance is **>= 5** tho
