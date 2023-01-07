@@ -70,7 +70,6 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
         for (j = 0; j < dimm7; j++) {
             register int ridx = RIDX(i,j,dim);
-            dst[ridx] = 0;
 
 
             RED = src[ridx].red * ker[0].red;
@@ -359,7 +358,6 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
         for (j = 0; j < dimm7; j++) {
             register int ridx = RIDX(i,j,dim);
-            dst[ridx] = 0;
 
 
             RED = src[ridx].red * ker[0].red;
@@ -644,7 +642,6 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
     for (j = 0; j < dimm7; j++) {
         register int ridx = RIDX(i,j,dim);
-        dst[ridx] = 0;
 
 
         RED = src[ridx].red * ker[0].red;
