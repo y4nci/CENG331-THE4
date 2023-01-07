@@ -3710,39 +3710,35 @@ void naive_average_pooling(int dim, pixel *src, pixel *dst) {
  */
 char average_pooling_descr[] = "Pooling: MY VERSION";
 void average_pooling(int dim, pixel *src, pixel *dst){
-    int halfdim = dim/2, i,j, i2plus1, j2plus1, i2, j2, ridx1, ridx2, iplus1, jplus1, RED, GREEN, BLUE;
-    register int ridx;
+    int halfdim = dim/2, i,j, RED, GREEN, BLUE, dimm1 = dim - 1, dim2 = dim * 2;
+    int ridx;
+    register pixel *srcPtr;
 
-    for(i = 0; i < halfdim; i+=2) {
-        iplus1 = i + 1;
-        i2 = i << 1; i2plus1 = (i << 1) + 1;
+    for(i = 0; i < halfdim; i++) {
+        for (j = 0; j < halfdim; j++) {
+            srcPtr = src + i * dim2 + 2 * j;
 
-        for (j = 0; j < halfdim; j+=2) {
-            jplus1 = j + 1;
             ridx = RIDX(i, j, halfdim);
-            j2 = j << 1; j2plus1 = (j << 1) + 1;
 
-            ridx1 = RIDX(i2, j2, dim);
-            ridx2 = RIDX(i2, j2plus1, dim);
+            RED = srcPtr->red;
+            GREEN = srcPtr->green;
+            BLUE = srcPtr->blue;
 
-            RED = src[ridx1].red;
-            GREEN = src[ridx1].green;
-            BLUE = src[ridx1].blue;
+            srcPtr++;
+            RED += srcPtr->red;
+            GREEN += srcPtr->green;
+            BLUE += srcPtr->blue;
 
-            RED += src[ridx2].red;
-            GREEN += src[ridx2].green;
-            BLUE += src[ridx2].blue;
+            srcPtr+=dimm1;
 
-            ridx1 = RIDX(i2plus1, j2, dim);
-            ridx2 = RIDX(i2plus1, j2plus1, dim);
+            RED += srcPtr->red;
+            GREEN += srcPtr->green;
+            BLUE += srcPtr->blue;
 
-            RED += src[ridx1].red;
-            GREEN += src[ridx1].green;
-            BLUE += src[ridx1].blue;
-
-            RED += src[ridx2].red;
-            GREEN += src[ridx2].green;
-            BLUE += src[ridx2].blue;
+            srcPtr++;
+            RED += srcPtr->red;
+            GREEN += srcPtr->green;
+            BLUE += srcPtr->blue;
 
             RED >>= 2;
             GREEN >>= 2;
@@ -3753,33 +3749,31 @@ void average_pooling(int dim, pixel *src, pixel *dst){
             dst[ridx].blue = BLUE;
 
 
+            j++;
 
+            ridx++;
 
+            srcPtr -= dimm1;
 
-            ridx = RIDX(i, jplus1, halfdim);
-            j2 = jplus1 << 1; j2plus1 = (jplus1 << 1) + 1;
+            RED = srcPtr->red;
+            GREEN = srcPtr->green;
+            BLUE = srcPtr->blue;
 
-            ridx1 = RIDX(i2, j2, dim);
-            ridx2 = RIDX(i2, j2plus1, dim);
+            srcPtr++;
+            RED += srcPtr->red;
+            GREEN += srcPtr->green;
+            BLUE += srcPtr->blue;
 
-            RED = src[ridx1].red;
-            GREEN = src[ridx1].green;
-            BLUE = src[ridx1].blue;
+            srcPtr+=dimm1;
 
-            RED += src[ridx2].red;
-            GREEN += src[ridx2].green;
-            BLUE += src[ridx2].blue;
+            RED += srcPtr->red;
+            GREEN += srcPtr->green;
+            BLUE += srcPtr->blue;
 
-            ridx1 = RIDX(i2plus1, j2, dim);
-            ridx2 = RIDX(i2plus1, j2plus1, dim);
-
-            RED += src[ridx1].red;
-            GREEN += src[ridx1].green;
-            BLUE += src[ridx1].blue;
-
-            RED += src[ridx2].red;
-            GREEN += src[ridx2].green;
-            BLUE += src[ridx2].blue;
+            srcPtr++;
+            RED += srcPtr->red;
+            GREEN += srcPtr->green;
+            BLUE += srcPtr->blue;
 
             RED >>= 2;
             GREEN >>= 2;
@@ -3788,39 +3782,39 @@ void average_pooling(int dim, pixel *src, pixel *dst){
             dst[ridx].red = RED;
             dst[ridx].green = GREEN;
             dst[ridx].blue = BLUE;
+
+            //srcPtr += 2;
         }
 
 
 
+        i++;
 
-        i2 = iplus1<< 1; i2plus1 = (iplus1 <<1)+ 1;
 
-        for (j = 0; j < halfdim; j+=2) {
-            jplus1 = j + 1;
-            ridx = RIDX(iplus1, j, halfdim);
-            j2 = j<<1; j2plus1 = (j <<1) + 1;
+        for (j = 0; j < halfdim; j++) {
+            srcPtr = src + i * dim2 + 2 * j;
 
-            ridx1 = RIDX(i2, j2, dim);
-            ridx2 = RIDX(i2, j2plus1, dim);
+            ridx = RIDX(i, j, halfdim);
 
-            RED = src[ridx1].red;
-            GREEN = src[ridx1].green;
-            BLUE = src[ridx1].blue;
+            RED = srcPtr->red;
+            GREEN = srcPtr->green;
+            BLUE = srcPtr->blue;
 
-            RED += src[ridx2].red;
-            GREEN += src[ridx2].green;
-            BLUE += src[ridx2].blue;
+            srcPtr++;
+            RED += srcPtr->red;
+            GREEN += srcPtr->green;
+            BLUE += srcPtr->blue;
 
-            ridx1 = RIDX(i2plus1, j2, dim);
-            ridx2 = RIDX(i2plus1, j2plus1, dim);
+            srcPtr+=dimm1;
 
-            RED += src[ridx1].red;
-            GREEN += src[ridx1].green;
-            BLUE += src[ridx1].blue;
+            RED += srcPtr->red;
+            GREEN += srcPtr->green;
+            BLUE += srcPtr->blue;
 
-            RED += src[ridx2].red;
-            GREEN += src[ridx2].green;
-            BLUE += src[ridx2].blue;
+            srcPtr++;
+            RED += srcPtr->red;
+            GREEN += srcPtr->green;
+            BLUE += srcPtr->blue;
 
             RED >>= 2;
             GREEN >>= 2;
@@ -3831,33 +3825,31 @@ void average_pooling(int dim, pixel *src, pixel *dst){
             dst[ridx].blue = BLUE;
 
 
+            j++;
 
+            ridx++;
 
+            srcPtr -= dimm1;
 
-            ridx = RIDX(iplus1, jplus1, halfdim);
-            j2 = jplus1 << 1; j2plus1 = (jplus1 << 1) + 1;
+            RED = srcPtr->red;
+            GREEN = srcPtr->green;
+            BLUE = srcPtr->blue;
 
-            ridx1 = RIDX(i2, j2, dim);
-            ridx2 = RIDX(i2, j2plus1, dim);
+            srcPtr++;
+            RED += srcPtr->red;
+            GREEN += srcPtr->green;
+            BLUE += srcPtr->blue;
 
-            RED = src[ridx1].red;
-            GREEN = src[ridx1].green;
-            BLUE = src[ridx1].blue;
+            srcPtr+=dimm1;
 
-            RED += src[ridx2].red;
-            GREEN += src[ridx2].green;
-            BLUE += src[ridx2].blue;
+            RED += srcPtr->red;
+            GREEN += srcPtr->green;
+            BLUE += srcPtr->blue;
 
-            ridx1 = RIDX(i2plus1, j2, dim);
-            ridx2 = RIDX(i2plus1, j2plus1, dim);
-
-            RED += src[ridx1].red;
-            GREEN += src[ridx1].green;
-            BLUE += src[ridx1].blue;
-
-            RED += src[ridx2].red;
-            GREEN += src[ridx2].green;
-            BLUE += src[ridx2].blue;
+            srcPtr++;
+            RED += srcPtr->red;
+            GREEN += srcPtr->green;
+            BLUE += srcPtr->blue;
 
             RED >>= 2;
             GREEN >>= 2;
@@ -3866,6 +3858,8 @@ void average_pooling(int dim, pixel *src, pixel *dst){
             dst[ridx].red = RED;
             dst[ridx].green = GREEN;
             dst[ridx].blue = BLUE;
+
+            //srcPtr += 2;
         }
     }
 }
