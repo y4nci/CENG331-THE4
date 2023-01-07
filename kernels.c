@@ -64,7 +64,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             RED, GREEN, BLUE,
             dimm8 = dim - 8;
 
-    for (i = 0; i < dimm8; i += BLOCK_SIZE)
+    for (i = 0; i < dimm8; i += BLOCK_SIZE) {
         for (i1 = i; i1 < i + BLOCK_SIZE; i1++) {
             for (j = 0; j < dimm8; j += BLOCK_SIZE) {
                 for (j1 = j; j1 < j + BLOCK_SIZE; j1++) {
@@ -2463,6 +2463,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
             dst[origridx] = RED + GREEN + BLUE;
         }
+    }
 
     for (j = 0; j < dimm8; j+=BLOCK_SIZE) {
         for (j1 = j; j1 < j + BLOCK_SIZE; j1++) {
