@@ -56,6 +56,8 @@ void naive_conv(int dim, pixel *src, pixel *ker, unsigned *dst) {
  */
 char convolution_descr[] = "Convolution: MY VERSION";
 void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
+    // TODO: implement temporal locality
+
     int dimm7 = dim - 7;
     register pixel * srcPtr, * kerPtr = ker;
     int i,j,origridx,
