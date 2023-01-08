@@ -68,8 +68,8 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
     for (i = 0; i < dimm8; i += BLOCK_SIZE) {
         for (i1 = i; i1 < i + BLOCK_SIZE; i1++) {
+            ridx = i1 * dim; // RIDX(i1, 0, dim);
             for (j = 0; j < dimm8; j += BLOCK_SIZE) {
-                ridx = RIDX(i1, j, dim);
                 for (j1 = j; j1 < j + BLOCK_SIZE; j1++, ridx++) {
                     kerPtr = ker;
                     dstPtr = dst + ridx;
@@ -1271,9 +1271,11 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
             i1++;
 
+            // ridx = RIDX(i1, 0, dim);
+            ridx = i1 * dim;
 
             for (j = 0; j < dimm8; j += BLOCK_SIZE) {
-                ridx = RIDX(i1, j, dim);
+                // ridx = RIDX(i1, j, dim);
                 for (j1 = j; j1 < j + BLOCK_SIZE; j1++, ridx++) {
                     kerPtr = ker;
                     dstPtr = dst + ridx;
@@ -2472,8 +2474,8 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
         }
     }
 
+    ridx = i1 * dim;
     for (j = 0; j < dimm8; j += BLOCK_SIZE) {
-        ridx = RIDX(i1, j, dim);
         for (j1 = j; j1 < j + BLOCK_SIZE; j1++, ridx++) {
             kerPtr = ker;
             dstPtr = dst + ridx;
