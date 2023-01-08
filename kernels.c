@@ -59,13 +59,12 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 #define BLOCK_SIZE 8
 
     int dimm7 = dim - 7;
-    register pixel *srcPtr, *kerPtr = ker;
+    /*register*/ pixel *srcPtr, *kerPtr = ker;
     unsigned * dstPtr = dst;
     int i, j, i1 = 0, j1,
-            RED, GREEN, BLUE,
             dimm8 = dim - 8,
-            ridx = 0;
-
+            ridx = 0,
+            RED, GREEN, BLUE;
     for (i = 0; i < dimm8; i += BLOCK_SIZE) {
         for (i1 = i; i1 < i + BLOCK_SIZE; i1++) {
             ridx = i1 * dim; // RIDX(i1, 0, dim);
