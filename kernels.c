@@ -63,14 +63,16 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
     unsigned * dstPtr = dst;
     int i, j, i1 = 0, j1,
             RED, GREEN, BLUE,
-            dimm8 = dim - 8;
+            dimm8 = dim - 8,
+            ridx = 0;
 
     for (i = 0; i < dimm8; i += BLOCK_SIZE) {
         for (i1 = i; i1 < i + BLOCK_SIZE; i1++) {
             for (j = 0; j < dimm8; j += BLOCK_SIZE) {
                 for (j1 = j; j1 < j + BLOCK_SIZE; j1++) {
-                    dstPtr = dst + RIDX(i1, j1, dim);
-                    srcPtr = src + RIDX(i1, j1, dim);
+                    ridx = RIDX(i1, j1, dim);
+                    dstPtr = dst + ridx;
+                    srcPtr = src + ridx;
                     kerPtr = ker;
 
                     RED = srcPtr->red * kerPtr->red;
@@ -467,12 +469,11 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
 
                     /////////////////////////////////////////////////////////////////////
+                    ridx++;
                     j1++;
 
-
                     dstPtr++;
-                    // TODO: try to calculate this using a const number
-                    srcPtr = src + RIDX(i1, j1, dim);
+                    srcPtr = src + ridx;
                     kerPtr = ker;
 
                     RED = srcPtr->red * kerPtr->red;
@@ -868,8 +869,9 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                 }
             }
 
+            ridx++;
             dstPtr++;
-            srcPtr = src + (int) (dstPtr - dst);
+            srcPtr = src + ridx;
             kerPtr = ker;
 
             RED = srcPtr->red * kerPtr->red;
@@ -1272,8 +1274,9 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
             for (j = 0; j < dimm8; j += BLOCK_SIZE) {
                 for (j1 = j; j1 < j + BLOCK_SIZE; j1++) {
-                    dstPtr = RIDX(i1, j1, dim) + dst;
-                    srcPtr = src + RIDX(i1, j1, dim);
+                    ridx = i1 * dim + j1;
+                    dstPtr = ridx + dst;
+                    srcPtr = src + ridx;
                     kerPtr = ker;
 
                     RED = srcPtr->red * kerPtr->red;
@@ -1670,11 +1673,12 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
 
                     /////////////////////////////////////////////////////////////////////
+                    ridx++;
                     j1++;
 
 
                     dstPtr++;
-                    srcPtr = src + RIDX(i1, j1, dim);
+                    srcPtr = src + ridx;
                     kerPtr = ker;
 
                     RED = srcPtr->red * kerPtr->red;
@@ -2070,8 +2074,9 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                 }
             }
 
+            ridx++;
             dstPtr++;
-            srcPtr = src + (int) (dstPtr - dst);
+            srcPtr = src + ridx;
             kerPtr = ker;
 
             RED = srcPtr->red * kerPtr->red;
@@ -2469,8 +2474,9 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
     for (j = 0; j < dimm8; j+=BLOCK_SIZE) {
         for (j1 = j; j1 < j + BLOCK_SIZE; j1++) {
-            dstPtr = RIDX(i1, j1, dim) + dst;
-            srcPtr = src + RIDX(i1, j1, dim);
+            ridx = RIDX(i1, j1, dim);
+            dstPtr = ridx + dst;
+            srcPtr = src + ridx;
             kerPtr = ker;
 
             RED = srcPtr->red * kerPtr->red;
@@ -2867,11 +2873,12 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
 
             /////////////////////////////////////////////////////////////////////
+            ridx++;
             j1++;
 
 
             dstPtr++;
-            srcPtr = src + RIDX(i1, j1, dim);
+            srcPtr = src + ridx;
             kerPtr = ker;
 
             RED = srcPtr->red * kerPtr->red;
@@ -3268,7 +3275,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
     }
 
     dstPtr ++;
-    srcPtr = src + (int) (dstPtr - dst);
+    srcPtr = src + (int) (dstPtr - dst); // TODO: change these mfs
     kerPtr = ker;
 
     RED = srcPtr->red * kerPtr->red;
