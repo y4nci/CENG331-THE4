@@ -71,9 +71,9 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             for (j = 0; j < dimm8; j += BLOCK_SIZE) {
                 for (j1 = j; j1 < j + BLOCK_SIZE; j1++) {
                     ridx = RIDX(i1, j1, dim);
+                    kerPtr = ker;
                     dstPtr = dst + ridx;
                     srcPtr = src + ridx;
-                    kerPtr = ker;
 
                     RED = srcPtr->red * kerPtr->red;
                     GREEN = srcPtr->green * kerPtr->green;
@@ -471,10 +471,11 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     /////////////////////////////////////////////////////////////////////
                     ridx++;
                     j1++;
+                    kerPtr = ker;
 
                     dstPtr++;
                     srcPtr = src + ridx;
-                    kerPtr = ker;
+                    
 
                     RED = srcPtr->red * kerPtr->red;
                     GREEN = srcPtr->green * kerPtr->green;
@@ -869,10 +870,10 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                 }
             }
 
-            ridx++;
+            ridx++; 
+            kerPtr = ker;
             dstPtr++;
             srcPtr = src + ridx;
-            kerPtr = ker;
 
             RED = srcPtr->red * kerPtr->red;
             GREEN = srcPtr->green * kerPtr->green;
@@ -1275,9 +1276,10 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             for (j = 0; j < dimm8; j += BLOCK_SIZE) {
                 for (j1 = j; j1 < j + BLOCK_SIZE; j1++) {
                     ridx = i1 * dim + j1;
+                    kerPtr = ker;
                     dstPtr = ridx + dst;
                     srcPtr = src + ridx;
-                    kerPtr = ker;
+                    
 
                     RED = srcPtr->red * kerPtr->red;
                     GREEN = srcPtr->green * kerPtr->green;
@@ -1675,11 +1677,11 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     /////////////////////////////////////////////////////////////////////
                     ridx++;
                     j1++;
-
+                    kerPtr = ker;
 
                     dstPtr++;
                     srcPtr = src + ridx;
-                    kerPtr = ker;
+                    
 
                     RED = srcPtr->red * kerPtr->red;
                     GREEN = srcPtr->green * kerPtr->green;
@@ -2075,9 +2077,10 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             }
 
             ridx++;
+            kerPtr = ker;
             dstPtr++;
             srcPtr = src + ridx;
-            kerPtr = ker;
+            
 
             RED = srcPtr->red * kerPtr->red;
             GREEN = srcPtr->green * kerPtr->green;
@@ -2475,9 +2478,10 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
     for (j = 0; j < dimm8; j+=BLOCK_SIZE) {
         for (j1 = j; j1 < j + BLOCK_SIZE; j1++) {
             ridx = RIDX(i1, j1, dim);
+            kerPtr = ker;
             dstPtr = ridx + dst;
             srcPtr = src + ridx;
-            kerPtr = ker;
+            
 
             RED = srcPtr->red * kerPtr->red;
             GREEN = srcPtr->green * kerPtr->green;
@@ -2875,11 +2879,11 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             /////////////////////////////////////////////////////////////////////
             ridx++;
             j1++;
-
+            kerPtr = ker;
 
             dstPtr++;
             srcPtr = src + ridx;
-            kerPtr = ker;
+            
 
             RED = srcPtr->red * kerPtr->red;
             GREEN = srcPtr->green * kerPtr->green;
@@ -3274,9 +3278,10 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
         }
     }
 
-    dstPtr ++;
-    srcPtr = src + (int) (dstPtr - dst); // TODO: change these mfs
+    ridx++;
+    dstPtr++;
     kerPtr = ker;
+    srcPtr = src + ridx;
 
     RED = srcPtr->red * kerPtr->red;
     GREEN= srcPtr->green * kerPtr->green;
