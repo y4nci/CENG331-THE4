@@ -60,10 +60,10 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
     int dimm6 = dim - 6;
     pixel *srcPtr1, *srcPtr2, *kerPtr1 = ker, *kerPtr2 = ker + 1;
     unsigned * dstPtr = dst;
+    register int sum;
     int i1 = 0, j1;
     int i, j, dimm8 = dim - 8,
-            ridx = 0,
-            RED, GREEN, BLUE;
+            ridx = 0;
     for (i = 0; i < dimm8; i += BLOCK_SIZE) {
         for (i1 = i; i1 < i + BLOCK_SIZE; i1++) {
             ridx = i1 * dim; // RIDX(i1, 0, dim);
@@ -75,218 +75,218 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
                     srcPtr2++; kerPtr2++;
 
-                    RED = srcPtr1->red * kerPtr1->red; GREEN = srcPtr1->green * kerPtr1->green; BLUE = srcPtr1->blue * kerPtr1->blue;
+                    sum = srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
-                    *(dstPtr) = RED + GREEN + BLUE;
+                    *(dstPtr) = sum;
 
 
 
@@ -301,218 +301,218 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
                     srcPtr2++; kerPtr2++;
 
-                    RED = srcPtr1->red * kerPtr1->red; GREEN = srcPtr1->green * kerPtr1->green; BLUE = srcPtr1->blue * kerPtr1->blue;
+                    sum = srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
-                    *(dstPtr) = RED + GREEN + BLUE;
+                    *(dstPtr) = sum;
                 }
             }
 
@@ -523,218 +523,218 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
             srcPtr2++; kerPtr2++;
 
-            RED = srcPtr1->red * kerPtr1->red; GREEN = srcPtr1->green * kerPtr1->green; BLUE = srcPtr1->blue * kerPtr1->blue;
+            sum = srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
-            *(dstPtr) = RED + GREEN + BLUE;
+            *(dstPtr) = sum;
 
 
 
@@ -752,218 +752,218 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
                     srcPtr2++; kerPtr2++;
 
-                    RED = srcPtr1->red * kerPtr1->red; GREEN = srcPtr1->green * kerPtr1->green; BLUE = srcPtr1->blue * kerPtr1->blue;
+                    sum = srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
-                    *(dstPtr) = RED + GREEN + BLUE;
+                    *(dstPtr) = sum;
 
 
 
@@ -978,218 +978,218 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
                     srcPtr2++; kerPtr2++;
 
-                    RED = srcPtr1->red * kerPtr1->red; GREEN = srcPtr1->green * kerPtr1->green; BLUE = srcPtr1->blue * kerPtr1->blue;
+                    sum = srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr1 += dimm6;
                     srcPtr2 += dimm6;
 
                     kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
                     srcPtr1 += 2; kerPtr1 += 2;
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
                     srcPtr2 += 2; kerPtr2 += 2;
-                    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+                    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
-                    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+                    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
-                    *(dstPtr) = RED + GREEN + BLUE;
+                    *(dstPtr) = sum;
                 }
             }
 
@@ -1199,218 +1199,218 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
 
             srcPtr2++; kerPtr2++;
-            RED = srcPtr1->red * kerPtr1->red; GREEN = srcPtr1->green * kerPtr1->green; BLUE = srcPtr1->blue * kerPtr1->blue;
+            sum = srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
-            *(dstPtr) = RED + GREEN + BLUE;
+            *(dstPtr) = sum;
         }
     }
 
@@ -1423,218 +1423,218 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
             srcPtr2++; kerPtr2++;
 
-            RED = srcPtr1->red * kerPtr1->red; GREEN = srcPtr1->green * kerPtr1->green; BLUE = srcPtr1->blue * kerPtr1->blue;
+            sum = srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
-            *(dstPtr) = RED + GREEN + BLUE;
+            *(dstPtr) = sum;
 
 
 
@@ -1649,218 +1649,218 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
             srcPtr2++; kerPtr2++;
 
-            RED = srcPtr1->red * kerPtr1->red; GREEN = srcPtr1->green * kerPtr1->green; BLUE = srcPtr1->blue * kerPtr1->blue;
+            sum = srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr1 += dimm6;
             srcPtr2 += dimm6;
 
             kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
             srcPtr1 += 2; kerPtr1 += 2;
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
             srcPtr2 += 2; kerPtr2 += 2;
-            RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+            sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
-            RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+            sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
-            *(dstPtr) = RED + GREEN + BLUE;
+            *(dstPtr) = sum;
         }
     }
 
@@ -1871,218 +1871,218 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
     srcPtr2++; kerPtr2++;
 
-    RED = srcPtr1->red * kerPtr1->red; GREEN = srcPtr1->green * kerPtr1->green; BLUE = srcPtr1->blue * kerPtr1->blue;
+    sum = srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr1 += dimm6;
     srcPtr2 += dimm6;
 
     kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr1 += dimm6;
     srcPtr2 += dimm6;
 
     kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr1 += dimm6;
     srcPtr2 += dimm6;
 
     kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr1 += dimm6;
     srcPtr2 += dimm6;
 
     kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr1 += dimm6;
     srcPtr2 += dimm6;
 
     kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr1 += dimm6;
     srcPtr2 += dimm6;
 
     kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr1 += dimm6;
     srcPtr2 += dimm6;
 
     kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     srcPtr1 += 2; kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
 
     srcPtr2 += 2; kerPtr2 += 2;
-    RED += srcPtr1->red * kerPtr1->red; GREEN += srcPtr1->green * kerPtr1->green; BLUE += srcPtr1->blue * kerPtr1->blue;
+    sum += srcPtr1->red * kerPtr1->red; sum += srcPtr1->green * kerPtr1->green; sum += srcPtr1->blue * kerPtr1->blue;
 
     kerPtr1 += 2;
-    RED += srcPtr2->red * kerPtr2->red; GREEN += srcPtr2->green * kerPtr2->green; BLUE += srcPtr2->blue * kerPtr2->blue;
-    *dstPtr = RED + GREEN + BLUE;
+    sum += srcPtr2->red * kerPtr2->red; sum += srcPtr2->green * kerPtr2->green; sum += srcPtr2->blue * kerPtr2->blue;
+    *dstPtr = sum;
 
 }
 
