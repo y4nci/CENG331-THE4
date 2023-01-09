@@ -57,8 +57,40 @@ void convoo(int dim, pixel *src, pixel *ker, unsigned *dst) {
     pixel * srcPtr, * kerPtr;
     unsigned * dstPtr = dst;
 
-    for(i=0; i < dim - 7; i++, dstPtr += 7) {
-        for (j = 0, srcPtr = RIDX(i, src, dim); j < dim - 7; j++, dstPtr++, srcPtr -= ((dim<<3) - 1)) {
+    for(i=0; i < dimm8; i++, dstPtr += 7) {
+        for (j = 0, srcPtr = RIDX(i, src, dim); j < dimm8 + 1; j++, dstPtr++, srcPtr -= ((dim<<3) - 1)) {
+            for (k = a = b = c = 0, kerPtr = ker; k < 4; k++, srcPtr += dimm8) {
+                for (l = 0; l < 4; l++, kerPtr++, srcPtr++) {
+                    a += srcPtr->red * kerPtr->red;
+                    b += srcPtr->green * kerPtr->green;
+                    c += srcPtr->blue * kerPtr->blue;
+
+                    kerPtr++, srcPtr++;
+
+                    a += srcPtr->red * kerPtr->red;
+                    b += srcPtr->green * kerPtr->green;
+                    c += srcPtr->blue * kerPtr->blue;
+                }
+
+                srcPtr += dimm8;
+
+                for (l = 0; l < 4; l++, kerPtr++, srcPtr++) {
+                    a += srcPtr->red * kerPtr->red;
+                    b += srcPtr->green * kerPtr->green;
+                    c += srcPtr->blue * kerPtr->blue;
+
+                    kerPtr++, srcPtr++;
+
+                    a += srcPtr->red * kerPtr->red;
+                    b += srcPtr->green * kerPtr->green;
+                    c += srcPtr->blue * kerPtr->blue;
+                }
+            }
+
+            *(dstPtr) = a+b+c;
+        }
+        dstPtr += 7, i++;
+        for (j = 0, srcPtr = RIDX(i, src, dim); j < dimm8 + 1; j++, dstPtr++, srcPtr -= ((dim<<3) - 1)) {
             for (k = a = b = c = 0, kerPtr = ker; k < 4; k++, srcPtr += dimm8) {
                 for (l = 0; l < 4; l++, kerPtr++, srcPtr++) {
                     a += srcPtr->red * kerPtr->red;
@@ -90,7 +122,36 @@ void convoo(int dim, pixel *src, pixel *ker, unsigned *dst) {
             *(dstPtr) = a+b+c;
         }
     }
+    for (j = 0, srcPtr = RIDX(i, src, dim); j < dimm8 + 1; j++, dstPtr++, srcPtr -= ((dim<<3) - 1)) {
+        for (k = a = b = c = 0, kerPtr = ker; k < 4; k++, srcPtr += dimm8) {
+            for (l = 0; l < 4; l++, kerPtr++, srcPtr++) {
+                a += srcPtr->red * kerPtr->red;
+                b += srcPtr->green * kerPtr->green;
+                c += srcPtr->blue * kerPtr->blue;
 
+                kerPtr++, srcPtr++;
+
+                a += srcPtr->red * kerPtr->red;
+                b += srcPtr->green * kerPtr->green;
+                c += srcPtr->blue * kerPtr->blue;
+            }
+
+            srcPtr += dimm8;
+
+            for (l = 0; l < 4; l++, kerPtr++, srcPtr++) {
+                a += srcPtr->red * kerPtr->red;
+                b += srcPtr->green * kerPtr->green;
+                c += srcPtr->blue * kerPtr->blue;
+
+                kerPtr++, srcPtr++;
+
+                a += srcPtr->red * kerPtr->red;
+                b += srcPtr->green * kerPtr->green;
+                c += srcPtr->blue * kerPtr->blue;
+            }
+        }
+        *(dstPtr) = a+b+c;
+    }
 }
 
 /*
