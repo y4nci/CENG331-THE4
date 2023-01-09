@@ -161,17 +161,17 @@ void convoo(int dim, pixel *src, pixel *ker, unsigned *dst) {
 char convolution_descr[] = "Convolution: MY VERSION";
 void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
     int dimm7 = dim - 7;
-    /*register*/ pixel *srcPtr, *kerPtr = ker;
+    pixel *srcPtr, *kerPtr = ker;
     unsigned * dstPtr = dst;
-    int i, j, i1 = 0, j1,
-            dimm8 = dim - 8,
+    register int i1 = 0, j1;
+    int i, j, dimm8 = dim - 8,
             ridx = 0,
             RED, GREEN, BLUE;
     for (i = 0; i < dimm8; i += BLOCK_SIZE) {
         for (i1 = i; i1 < i + BLOCK_SIZE; i1++) {
             ridx = i1 * dim; // RIDX(i1, 0, dim);
             for (j = 0; j < dimm8; j += BLOCK_SIZE) {
-                for (j1 = j; j1 < j + BLOCK_SIZE; j1++, ridx++) {
+                for (j1 = j; j1 < j + BLOCK_SIZE; j1+=2, ridx++) {
                     kerPtr = ker;
                     dstPtr = dst + ridx;
                     srcPtr = src + ridx;
@@ -571,7 +571,6 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
                     /////////////////////////////////////////////////////////////////////
                     ridx++;
-                    j1++;
                     kerPtr = ker;
 
                     dstPtr++;
@@ -1375,7 +1374,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             ridx = i1*dim;
 
             for (j = 0; j < dimm8; j += BLOCK_SIZE) {
-                for (j1 = j; j1 < j + BLOCK_SIZE; j1++, ridx++) {
+                for (j1 = j; j1 < j + BLOCK_SIZE; j1+=2, ridx++) {
                     kerPtr = ker;
                     dstPtr = dst + ridx;
                     srcPtr = src + ridx;
@@ -1775,7 +1774,6 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
                     /////////////////////////////////////////////////////////////////////
                     ridx++;
-                    j1++;
                     kerPtr = ker;
 
                     dstPtr++;
@@ -2575,7 +2573,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
     ridx = i1 * dim;
     for (j = 0; j < dimm8; j += BLOCK_SIZE) {
-        for (j1 = j; j1 < j + BLOCK_SIZE; j1++, ridx++) {
+        for (j1 = j; j1 < j + BLOCK_SIZE; j1+=2, ridx++) {
             kerPtr = ker;
             dstPtr = dst + ridx;
             srcPtr = src + ridx;
@@ -2975,7 +2973,6 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 
             /////////////////////////////////////////////////////////////////////
             ridx++;
-            j1++;
             kerPtr = ker;
 
             dstPtr++;
