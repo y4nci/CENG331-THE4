@@ -57,12 +57,12 @@ void naive_conv(int dim, pixel *src, pixel *ker, unsigned *dst) {
  */
 char convolution_descr[] = "Convolution: MY VERSION";
 void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
-    int dimm7 = dim - 7;
+    unsigned short dimm7 = dim - 7, dimm8 = dim - 8, i, j;
     pixel *srcPtr, *kerPtr;
     unsigned * dstPtr = dst;
-    int sum, i, j, dimm8 = dim - 8,
-            ridx,
+    int sum, ridx,
             i1 = 0, j1;
+
     for (i = 0; i < dimm8; i += BLOCK_SIZE) {
         for (i1 = i; i1 < i + BLOCK_SIZE; i1++) {
             ridx = i1 * dim; // RIDX(i1, 0, dim);
