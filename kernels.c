@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "defs.h"
+#define BLOCK_SIZE 8
 /*
  * Please fill in the following team_t struct
  */
@@ -50,14 +51,54 @@ void naive_conv(int dim, pixel *src, pixel *ker, unsigned *dst) {
         }
 }
 
+char desoo[] = "ANOTHER ONE";
+void convoo(int dim, pixel *src, pixel *ker, unsigned *dst) {
+    int i,j,k,l, a, b, c, dimm8 = dim - 8;
+    pixel * srcPtr, * kerPtr;
+    unsigned * dstPtr = dst;
+
+    for(i=0; i < dim - 7; i++, dstPtr += 7) {
+        for (j = 0, srcPtr = RIDX(i, src, dim); j < dim - 7; j++, dstPtr++, srcPtr -= ((dim<<3) - 1)) {
+            for (k = a = b = c = 0, kerPtr = ker; k < 4; k++, srcPtr += dimm8) {
+                for (l = 0; l < 4; l++, kerPtr++, srcPtr++) {
+                    a += srcPtr->red * kerPtr->red;
+                    b += srcPtr->green * kerPtr->green;
+                    c += srcPtr->blue * kerPtr->blue;
+
+                    kerPtr++, srcPtr++;
+
+                    a += srcPtr->red * kerPtr->red;
+                    b += srcPtr->green * kerPtr->green;
+                    c += srcPtr->blue * kerPtr->blue;
+                }
+
+                srcPtr += dimm8;
+
+                for (l = 0; l < 4; l++, kerPtr++, srcPtr++) {
+                    a += srcPtr->red * kerPtr->red;
+                    b += srcPtr->green * kerPtr->green;
+                    c += srcPtr->blue * kerPtr->blue;
+
+                    kerPtr++, srcPtr++;
+
+                    a += srcPtr->red * kerPtr->red;
+                    b += srcPtr->green * kerPtr->green;
+                    c += srcPtr->blue * kerPtr->blue;
+                }
+            }
+
+            *(dstPtr) = a+b+c;
+        }
+    }
+
+}
+
 /*
  * convolution - Your current working version of convolution
  * IMPORTANT: This is the version you will be graded on
  */
 char convolution_descr[] = "Convolution: MY VERSION";
 void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
-#define BLOCK_SIZE 8
-
     int dimm7 = dim - 7;
     /*register*/ pixel *srcPtr, *kerPtr = ker;
     unsigned * dstPtr = dst;
@@ -3680,6 +3721,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
 void register_conv_functions() {
     add_conv_function(&naive_conv, naive_conv_descr);
     add_conv_function(&convolution, convolution_descr);
+    add_conv_function(&convoo, desoo);
     /* ... Register additional test functions here */
 }
 
