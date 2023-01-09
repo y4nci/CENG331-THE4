@@ -1,1 +1,1 @@
-make clean; make driver; ./driver -g
+make clean; make driver; ./driver # -g
