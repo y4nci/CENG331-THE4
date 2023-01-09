@@ -60,7 +60,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
     int dimm7 = dim - 7;
     pixel *srcPtr, *kerPtr = ker;
     unsigned * dstPtr = dst;
-    register int sum;
+    int sum;
     int i, j, dimm8 = dim - 8,
             ridx = 0,
             i1 = 0, j1;
