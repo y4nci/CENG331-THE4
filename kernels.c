@@ -10,7 +10,7 @@
  * Please fill in the following team_t struct
  */
 team_t team = {
-        "rant_yoluna_hayir",    /* Team Name */
+        "versankokodtuyerektorolamaz",    /* Team Name */
 
         "e244901",      /* First student ID */
         "Baran Yancı",/* First student name */
