@@ -57,7 +57,7 @@ void naive_conv(int dim, pixel *src, pixel *ker, unsigned *dst) {
  */
 char convolution_descr[] = "Convolution: MY VERSION";
 void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
-    unsigned short dimm7 = dim - 7, dimm8 = dim - 8, i, j;
+    unsigned short dimm8 = dim - 8, i, j;
     pixel *srcPtr, *kerPtr;
     unsigned * dstPtr = dst;
     int sum, ridx,
@@ -95,7 +95,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -120,7 +120,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -145,7 +145,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -170,7 +170,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -195,7 +195,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -220,7 +220,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -245,7 +245,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -305,7 +305,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -330,7 +330,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -355,7 +355,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -380,7 +380,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -405,7 +405,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -430,7 +430,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -455,7 +455,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -511,7 +511,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -536,7 +536,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -561,7 +561,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -586,7 +586,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -611,7 +611,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -636,7 +636,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -661,7 +661,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -725,7 +725,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -750,7 +750,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -775,7 +775,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -800,7 +800,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -825,7 +825,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -850,7 +850,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -875,7 +875,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -935,7 +935,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -960,7 +960,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -985,7 +985,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1010,7 +1010,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1035,7 +1035,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1060,7 +1060,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1085,7 +1085,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
                     srcPtr++; kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-                    srcPtr += dimm7;
+                    srcPtr += dim - 7;
                     kerPtr++;
                     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1142,7 +1142,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1167,7 +1167,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1192,7 +1192,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1217,7 +1217,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1242,7 +1242,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1267,7 +1267,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1292,7 +1292,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1351,7 +1351,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1376,7 +1376,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1401,7 +1401,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1426,7 +1426,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1451,7 +1451,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1476,7 +1476,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1501,7 +1501,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1561,7 +1561,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1586,7 +1586,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1611,7 +1611,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1636,7 +1636,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1661,7 +1661,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1686,7 +1686,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1711,7 +1711,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
             srcPtr++; kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-            srcPtr += dimm7;
+            srcPtr += dim - 7;
             kerPtr++;
             sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1767,7 +1767,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
     srcPtr ++; kerPtr ++;
     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-    srcPtr += dimm7;
+    srcPtr += dim - 7;
     kerPtr++;
     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1792,7 +1792,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
     srcPtr ++; kerPtr ++;
     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-    srcPtr += dimm7;
+    srcPtr += dim - 7;
     kerPtr++;
     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1817,7 +1817,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
     srcPtr ++; kerPtr ++;
     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-    srcPtr += dimm7;
+    srcPtr += dim - 7;
     kerPtr++;
     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1842,7 +1842,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
     srcPtr ++; kerPtr ++;
     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-    srcPtr += dimm7;
+    srcPtr += dim - 7;
     kerPtr++;
     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1867,7 +1867,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
     srcPtr ++; kerPtr ++;
     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-    srcPtr += dimm7;
+    srcPtr += dim - 7;
     kerPtr++;
     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1892,7 +1892,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
     srcPtr ++; kerPtr ++;
     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-    srcPtr += dimm7;
+    srcPtr += dim - 7;
     kerPtr++;
     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
@@ -1917,7 +1917,7 @@ void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
     srcPtr ++; kerPtr ++;
     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
-    srcPtr += dimm7;
+    srcPtr += dim - 7;
     kerPtr++;
     sum += srcPtr->red * kerPtr->red; sum += srcPtr->green * kerPtr->green; sum += srcPtr->blue * kerPtr->blue;
 
