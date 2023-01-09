@@ -58,11 +58,10 @@ void naive_conv(int dim, pixel *src, pixel *ker, unsigned *dst) {
 char convolution_descr[] = "Convolution: MY VERSION";
 void convolution(int dim, pixel *src, pixel *ker, unsigned *dst) {
     int dimm7 = dim - 7;
-    pixel *srcPtr, *kerPtr = ker;
+    pixel *srcPtr, *kerPtr;
     unsigned * dstPtr = dst;
-    int sum;
-    int i, j, dimm8 = dim - 8,
-            ridx = 0,
+    int sum, i, j, dimm8 = dim - 8,
+            ridx,
             i1 = 0, j1;
     for (i = 0; i < dimm8; i += BLOCK_SIZE) {
         for (i1 = i; i1 < i + BLOCK_SIZE; i1++) {
